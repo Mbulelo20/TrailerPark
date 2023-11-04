@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <title>Document</title>
+</head>
+<style>
+    body,
+    h1 {
+        font-family: "Poppins", sans-serif;
+    }
+
+    body,
+    html {
+        height: 100%;
+    }
+
+    .bgimg {
+        background-image: url('https://image.tmdb.org/t/p/w500{{img}}');
+         background-color: rgba(0, 0, 0, 0.831);
+        min-height: 100%;
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+        position: relative;
+        
+    }
+
+    .bgimg::before {
+        content: "";
+        background-image: url('https://image.tmdb.org/t/p/w500{{img}}');
+        
+        min-height: 100%;
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+        filter: blur(14px);
+        -webkit-filter: blur(14px);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        justify-items: center;
+        column-gap: 4em;
+        row-gap: 2em;
+    }
+
+    .grid-item {
+        background-color: transparent;
+        border: 1px solid rgba(0, 0, 0, 0.831);
+        width: 100%;
+        text-align: center;
+        z-index: 1;
+        max-width: 250px;
+    }
+
+    .centered-div {
+        margin-top: 5em;
+        text-align: center;
+    }
+
+    .centered-div>div {
+        display: inline-block;
+        text-align: left;
+        margin: 0 auto;
+    }
+</style>
+
+<body class="bgimg">
+    <div
+        style="text-align: center; margin-top: 3em; color: white; z-index: 1; font-family: 'Poppin', sans-serif; position: relative; z-index: 2;">
+        <h1>Results for <b>{{movie_name}}</b></h1>
+        <hr class="w3-border-green" style="margin: auto; width: 40%; margin-top: 3em;">
+    </div>
+
+    <div class="centered-div">
+        <div>
+            <div class="grid-container">
+                {% for movie in results %}
+                <div class="grid-item" style="width: 250px;">
+                    <a href="/movie/{{ movie.id }}">
+                        <img src='https://image.tmdb.org/t/p/w500{{movie.poster_path}}' style="max-width: 100%;">
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
