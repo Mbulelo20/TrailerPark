@@ -48,6 +48,7 @@ def search(name):
     response.raise_for_status()
 
     data = response.json()
+
     return data
 
 
@@ -56,5 +57,5 @@ def findMovie(id):
     
     response = requests.get(url)
     movie_data = response.json()
-
+    
     return movie_data

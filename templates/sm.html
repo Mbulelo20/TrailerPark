@@ -1,125 +1,220 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
+    <title>{{movie_item.title}}</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body,
+        h1 {
+            font-family: "Raleway", Arial, sans-serif
+        }
+
+        h1 {
+            letter-spacing: 6px
+        }
+
+        .w3-row-padding img {
+            margin-bottom: 12px
+        }
+
+        .bg-image {
+            background-image: url('https://image.tmdb.org/t/p/w500{{movie_item.backdrop_path}}');
+
+            /* Add the blur effect */
+            filter: blur(8px);
+            -webkit-filter: blur(8px);
+
+            /* Full height */
+            height: 100%;
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .bgimg {
+            background-image: url('https://image.tmdb.org/t/p/w500{{movie_item.poster_path}}');
+            background-color: rgba(0, 0, 0, 0.831);
+            min-height: 100%;
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+            position: relative;
+
+        }
+
+        .bgimg::before {
+            content: "";
+            background-image: url('https://image.tmdb.org/t/p/w500{{movie_item.poster_path}}');
+            background: rgba(0, 0, 0, 0.5);
+            min-height: 100%;
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+            filter: blur(14px);
+            -webkit-filter: blur(14px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+    </style>
 </head>
-<style>
-    body,
-    h1 {
-        font-family: "Poppins", sans-serif
-    }
 
-    body,
-    html {
-        height: 100%
-    }
+<body class="bgimg">
 
-    .bgimg {
-        background-image: url('https://image.tmdb.org/t/p/w500{{img}}');
-        min-height: 100%;
-        background-position: center;
-        background-size: cover;
-        background-attachment: fixed;
-        /* Fix the background image in place */
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-content" style="max-width:1500px" class="bg-image">
+        <div class="w3-content" style="max-width:1500px">
 
-        filter: blur(8px);
-        -webkit-filter: blur(8px);
-    }
+            <div class="w3-jumbo" style="color: white;">
+                <h6 class="w3-animate-top" style="font-size: 32px; display: inline;">
+                    <span><i class="fa fa-film" style="font-size: 38px;"></i> </span>{{movie_item.title}}
+                </h6>
+                <h4 class="w3-animate-top" style="display: inline;  font-size: 17px; margin-left: 1em;">
+                    |<span style="margin-left: 1em;"><i class="fa fa-calendar" style="color: yellow;"></i></span>
+                    {{movie_item.release_date}}
+                </h4>
+                <h4 class="w3-animate-top" style="display: inline;  font-size: 17px; margin-left: 1em;">
+                    |<span style="margin-left: 1em;"><i class="fa fa-star" style="color: yellow;"></i></span>
+                    {{movie_item.vote_average}}
+                </h4>
+            </div>
+            <div class="w3-row-padding w3-grayscale" style="margin-bottom:2em; margin-top: 1em;">
 
-    .bgimg::before {
-        content: "";
-        /* background: rgba(0, 0, 0, 0.831); */
-        /* Adjust the last value to control the darkness */
-        background: rgba(0, 0, 0, 0.747);
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        filter: blur(5px);
-        -webkit-filter: blur(5px);
-        /* Add this line to blur the background */
-    }
+                <div class="w3-threequarter" style="border: 2px solid green;">
+                    <iframe width="100%" height="500" src="https://www.youtube.com/embed/{{defaultTrailer}}"
+                        frameborder="0" allowfullscreen>
+                    </iframe>
+                </div>
 
-    .grid-container {
-        display: grid;
-        grid-template-columns: auto auto auto auto;
-        /* Adjust column layout */
-        justify-items: center;
-        /* Horizontally center grid items */
-        column-gap: 4em;
-        /* Increase the horizontal gap between grid items */
-        row-gap: 2em;
-    }
-
-    .grid-item {
-        /* margin: 1em; */
-        background-color: transparent;
-        border: 1px solid rgba(0, 0, 0, 0.831);
-        width: 100%;
-        /* Allow grid items to expand to fill the available space */
-        text-align: center;
-        z-index: 1;
-        max-width: 250px;
-    }
-
-    .centered-div {
-        margin-top: 5em;
-        text-align: center;
-        /* Center the content horizontally */
-    }
-
-    .centered-div>div {
-        display: inline-block;
-        /* Make the inner div behave like an inline-block element */
-        text-align: left;
-        /* Reset the text alignment for inner content */
-        margin: 0 auto;
-        /* Center the inner div horizontally */
-    }
-</style>
-
-<body>
-    <div class="bgimg w3-display-container"></div>
-    <div class="w3-animate-opacity w3-text-white">
-
-        <div class="w3-display-middle" style="top: 5em; background-color: transparent;">
-            <h1 class="w3-jumbo w3-animate-top" style="font-size: 68px;">Popular Right Now
-            </h1>
-            <hr class="w3-border-grey" style="margin: auto; width: 40%">
-        </div>
-        <div class="w3-display-middle" style="top: 75em;">
-            <div class="centered-div">
-                <div>
-
-                    <div class="grid-container">
-
-                        {% for movie in results %}
-                        <div class="grid-item" style="width: 250px;">
-
-                            <a href="/movie/{{ movie.id }}"><img
-                                    src='https://image.tmdb.org/t/p/w500{{movie.poster_path}}'
-                                    style="max-width: 100%;"></a>
-                        </div>
-                        {% endfor %}
-
+                <div class="w3-quarter">
+                    {% for i in trailers %}
+                    <div
+                        style=" padding-right: 3em; padding-left: 1em; padding-bottom: 1em; padding-top: 1em; display: block; margin-bottom: 10px; background-color: yellow; color: #222">
+                        <a href="{% url 'movie_item' movie_item.id i.key %}"
+                            style="font-size: 20px; text-decoration: none;"><b>{{i.name}}</b></a>
                     </div>
+
+                    {% endfor %}
                 </div>
             </div>
+
         </div>
+        <div style="margin-top: 3px; color: white;" class="w3-display-bottom w3-display-container"
+            style="text-align: center;">
+            <!-- <div class="w3-bar w3-border w3-light-grey"> -->
+            <button onclick="document.getElementById('id01').style.display='block'" class="w3-button">Overview</button>
+            <button onclick="document.getElementById('id02').style.display='block'" class="w3-button">Cast</button>
+            <button onclick="document.getElementById('id03').style.display='block'"
+                class="w3-button">Director&Crew</button>
+
+            <!-- </div> -->
+        </div>
+
+        <div id="id01" class="w3-modal w3-display-middle w3-animate"
+            style="background-color: rgba(0, 0, 0, 0.808);padding-bottom: 5em; padding-right: 2em;padding-left: 2em; color: wheat; width: 45%; margin-top: 10px; margin-bottom: 0;">
+
+            <span onclick="document.getElementById('id01').style.display='none'"
+                class="w3-button w3-display-topright">&times;</span>
+
+            <div style="text-align: center; padding: 3px;">
+                {% for genre in movie_item.genres %}
+                <h6 style="display: inline; margin: 0; font-size: 24px;">
+                    <b>{{genre.name}}</b>{% if not forloop.last %} <div
+                        style="padding-left: 1em;padding-right: 1em;display: inline">|</div> {% endif %}
+                </h6>
+                {%endfor%}
+                <hr class="w3-border-green" style="margin: auto; width: 40%; margin-top: 1em;margin-bottom: 1em;">
+
+                <h6 style=" margin: 0; font-size: 24px;">
+                    <b> {{movie_item.overview}}</b>
+                </h6>
+            </div>
+
+        </div>
+        <div id="id02" class="w3-modal w3-display-middle w3-animate"
+            style="background-color: rgba(0, 0, 0, 0.808);padding-bottom: 5em; padding-right: 2em;padding-left: 2em; color: wheat; width: 45%; margin-top: 10px; margin-bottom: 0;">
+
+            <span onclick="document.getElementById('id02').style.display='none'"
+                class="w3-button w3-display-topright">&times;</span>
+
+
+            <div style=" padding: 3px;">
+                {% for actor in movie_item.credits.cast %}
+                <div style=" margin: 0; font-size: 24px;">
+                    <div style="display: inline;">
+                        <img src='https://image.tmdb.org/t/p/w185/{{actor.profile_path}}' style="max-width: 50px;">
+                    </div>
+                    <div style="display: inline; font-size: 18px;">
+                        <b>{{actor.name}}</b>
+                    </div>
+                    <div style="display: inline; font-size: 14px;">
+                        {{actor.character}}
+                    </div>
+
+                </div>
+                {%endfor%}
+
+            </div>
+
+        </div>
+        <div id="id03" class="w3-modal w3-display-middle w3-animate"
+            style="background-color: rgba(0, 0, 0, 0.808);padding-bottom: 5em; padding-right: 2em;padding-left: 2em; color: wheat; width: 45%; margin-top: 10px; margin-bottom: 0;">
+
+            <span onclick="document.getElementById('id03').style.display='none'"
+                class="w3-button w3-display-topright">&times;</span>
+
+
+            <div style=" padding: 3px;">
+                <!-- {{movie_item.credits.crew}} -->
+                {% for c in movie_item.credits.crew %}
+                <div style=" margin: 0; font-size: 24px;">
+                    <!-- {{c}} -->
+                    {% if c.job == 'Director'%}
+
+                    <div>
+                        <b>{{c.name}}</b>
+                    </div>
+                    <di>
+                        <h5>{{c.job}}</h5>
+                </div>
+                {%endif%}
+                {% if c.job == 'Producer'%}
+
+                <div>
+                    <b>{{c.name}}</b>
+                </div>
+                <div>
+                    <h5>{{c.job}}</h5>
+                </div>
+
+                {%endif%}
+                <!-- <div style="display: inline;">
+                        <img src='https://image.tmdb.org/t/p/w185/{{actor.profile_path}}' style="max-width: 50px;">
+                    </div>
+                    <div style="display: inline; font-size: 18px;">
+                        <b>{{actor.name}}</b>
+                    </div>
+                    <div style="display: inline; font-size: 14px;">
+                        {{actor.character}}
+                    </div> -->
+
+            </div>
+            {%endfor%}
+
+        </div>
+
     </div>
-    <div class="w3-animate-opacity w3-text-white">
-
-
     </div>
-
-
-
 </body>
 
 </html>

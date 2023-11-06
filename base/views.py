@@ -29,7 +29,10 @@ def search_movie(request):
     movie_name = request.POST.get('movie_name', '') 
 
     results = api.search(movie_name)['results']
-    context = {"img":results[0]["backdrop_path"], "results": results, "movie_name": movie_name}
+    if len(results) > 0:
+        context = {"img":results[0]["backdrop_path"], "results": results, "movie_name": movie_name}
+    else:
+        context = {"not_found": True}
     return render(request, "Movies.html", context)
 
     # results = api.search(movie_name)['results']
@@ -41,11 +44,16 @@ def movie_item(request, id, link=""):
     print(id)
     movieItem = api.findMovie(id)
     videos = movieItem['videos']['results']
-    print(link)
+    trailers = []
 
     # if request.method == "POST":
+    print(videos)
+    for i in videos:
+        # print(i['type'])
+        if i['type'] == 'Trailer' or i['type'] == 'Teaser':
+            trailers.append(i)
     trailer = videos[0]['key']
     if len(link) > 0:
         trailer = link
-    context = {"movie_item": movieItem, "trailers": videos[:5], "defaultTrailer": trailer}
+    context = {"movie_item": movieItem, "trailers": trailers[:5], "defaultTrailer": trailer}
     return render(request, "MovieItem.html", context)
