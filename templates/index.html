@@ -43,15 +43,14 @@
         filter: blur(5px);
         -webkit-filter: blur(5px);
         /* Add this line to blur the background */
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 420px) {
         .bgimg {
             background-attachment: scroll;
         }
 
-        .w3-jumbo {
-            font-size: 48px;
+        .inputField{
+            max-width: 20px;
         }
-
         /* Add more specific styles for smaller screens as needed */
     }
     }
@@ -59,33 +58,37 @@
 
 <body>
     <div class="bgimg w3-display-container "></div>
-    <div class="w3-animate-opacity w3-text-white">
+    <div class="w3-animate-opacity w3-text-white w3-auto">
        
-        <div class="w3-display-middle" style="top: 20em;">
-            <h1 class="w3-jumbo w3-animate-top" style="font-size: 68px;">TRAILER<span><i class="fa fa-film"></i></span>PARK</h1>
+        <div class="w3-display-middle" >
+            <h1 class="w3-animate-top" style="text-align: center; font-size: 44px;">TRAILER<span><i class="fa fa-film"></i></span>PARK</h1>
             <hr class="w3-border-grey" style="margin: auto; width: 40%">
+            <div  class="inputField" style="margin-top: 3em;">
+                <form method="post" action="{% url 'search_movie' %}">
+                    {% csrf_token %}
+                    <input type="text" name="movie_name"
+                        style="background-color: rgba(255, 255, 255, 0.7); opacity: 0.7; padding-top: 0.3em; padding-bottom: 0.3em; border: none; padding-left: 1em; width: 500px; height: 46px; border-radius: 50px 0 0 50px; font-size: 24px;"
+                        required>
+                    <input type="submit" value="Search"
+                        style="color: white; background-color: green; border: none; height: 46px; font-size: 24px; padding-left: 2em; padding-right: 2em;border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 50px; border-bottom-right-radius: 50px;">
+                </form>
+            </div>
+            <div class="w3-display-container w3-padding-large w3-xlarge"
+                style="text-align: center; margin-top: 3em;">
+                <!-- <div class="w3-bar w3-border w3-light-grey"> -->
+                <a href="/browse" class="w3-bar-item w3-button">Browse</a>
+                <a href="/review" class="w3-bar-item w3-button">Review</a>
+                <a href="/favorites" class="w3-bar-item w3-button">Favorites</a>
+            
+                <!-- </div> -->
+            </div>
         </div>
-        <div class="w3-display-middle" style="margin-top: 3em;">
-            <form method="post" action="{% url 'search_movie' %}">
-                {% csrf_token %}
-                <input type="text" name="movie_name"
-                    style="background-color: rgba(255, 255, 255, 0.7); opacity: 0.7; padding-top: 0.3em; padding-bottom: 0.3em; border: none; padding-left: 1em; width: 500px; height: 46px; border-radius: 50px 0 0 50px; font-size: 24px;" required>
-                <input type="submit" value="Search"
-                    style="color: white; background-color: green; border: none; height: 46px; font-size: 24px; padding-left: 2em; padding-right: 2em;border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 50px; border-bottom-right-radius: 50px;">
-            </form>
-        </div>
-        <div style="margin-top: 5em;" class="w3-display-middle w3-display-container w3-padding-large w3-xlarge" style="text-align: center;">
-            <!-- <div class="w3-bar w3-border w3-light-grey"> -->
-            <a href="/browse" class="w3-bar-item w3-button">Browse</a>
-            <a href="/review" class="w3-bar-item w3-button">Review</a>
-            <a href="/favorites" class="w3-bar-item w3-button">Favorites</a>
-           
-            <!-- </div> -->
-        </div>
+        
+        
         <div class="w3-display-bottomleft w3-padding-large">
             Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
         </div>
-    
+    </div>
 </body>
 
 </html>
